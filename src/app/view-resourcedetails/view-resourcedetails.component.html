@@ -1,0 +1,78 @@
+<div class="panel panel-primary">
+    <div class="panel-body"> 
+        <div style="width: 400px;">
+            <form [formGroup]="searchResource" novalidate (ngSubmit)="onSubmit()">
+
+                <!-- RESOURCE TYPE-->
+                <div class="form-group">
+                    <label class="col-md-4">Search Resource </label>
+                    <select formControlName="resourceTypeId" class="form-control" required>
+                        <option value="" disabled>Choose Resource Type</option>
+                        <option *ngFor="let resource of resourceType | async" value="{{resource.resourceTypeId}}">
+                            {{resource.resourceType}}</option>
+                    </select>
+
+                </div>
+                <div *ngIf="searchResource.controls['resourceTypeId'].invalid && (searchResource.controls['resourceTypeId'].dirty || searchResource.controls['resourceTypeId'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="searchResource.controls['resourceTypeId'].errors.required">
+                        Field is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="searchResource.pristine || searchResource.invalid">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading ">
+        <h2>ResourceType List</h2>
+
+        <a [routerLink]="['/admin/addResourceDetails']" class="btn btn-info" style="margin-left:800px">Create
+            Resource</a>
+
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#ID</th>
+                    <th>Resource Type </th>
+                    <th>Resource Capacity </th>
+                    <th>Number of Systems </th>
+                    <th>Projector </th>
+                    <th>White Board </th>
+                    <th>Resource Rate </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let res of resources | async | paginate: { itemsPerPage: 4, currentPage: p }; let i=index">
+                    <td>{{res.resourceId}}</td>
+                    <td>{{res.resource.resourceType}}</td>
+                    <td>{{res.resourceCapacity}}</td>
+                    <td>{{res.noOfSystems}}</td>
+                    <td>{{res.projector}}</td>
+                    <td>{{res.whiteBoard}}</td>
+                    <td>{{res.resourceRate}}</td>
+                    <td>
+                        <button (click)="editResource(res.resourceId)" class="btn btn-info"
+                            style="margin-left: 10px">Edit</button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<pagination-controls (pageChange)="p=($event)">
+</pagination-controls>

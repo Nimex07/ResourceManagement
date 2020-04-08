@@ -1,0 +1,77 @@
+<div class="container">
+    <form [formGroup]="reportForm" novalidate (ngSubmit)="onSubmit()">
+
+        <!-- DATE -->
+        <div class="form-group">
+            <label class="col-md-4">Choose a Date</label>
+            <input type="date" class="form-control" required max="{{todate | date:'yyyy-MM-dd'}}"
+                formControlName="date">
+        </div>
+        <div *ngIf="reportForm.controls['date'].invalid && (reportForm.controls['date'].dirty || reportForm.controls['date'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="reportForm.controls['date'].errors.required">
+                Start Date is required.
+            </div>
+        </div>
+        <!--END DATE -->
+        <div class="form-group">
+            <label class="col-md-4">Choose a Date</label>
+            <input type="date" class="form-control" required max="{{todate | date:'yyyy-MM-dd'}}"
+                formControlName="endDate">
+        </div>
+        <div *ngIf="reportForm.controls['endDate'].invalid && (reportForm.controls['endDate'].dirty || reportForm.controls['endDate'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="reportForm.controls['endDate'].errors.required">
+                Start Date is required.
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" [disabled]="reportForm.pristine || reportForm.invalid">
+                Submit
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<!-- TABULAR FORM OF ENQUIRY-ACCEPTED-REJECTED-->
+<div class="container" [hidden]="submitted">
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h2>Report</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Resource Type </th>
+                        <th>Enquiry </th>
+                        <th>Accepted </th>
+                        <th>Rejected </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{res.resource.resourceType}}</td>
+                        <td>{{enquiry}}</td>
+                        <td>{{accepted}}</td>
+                        <td>{{rejected}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- BAR CHART -->
+<div class="container" [hidden]="submitted">
+
+    <div class="chart-wrapper">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+    </div>
+</div>

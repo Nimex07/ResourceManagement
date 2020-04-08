@@ -1,0 +1,63 @@
+<div class="panel panel-primary">
+    <div class="panel-heading ">
+        <h2>Create User</h2>
+
+    </div>
+    <div class="panel-body">
+        <hr />
+
+        <div [hidden]="submitted" style="width: 400px;">
+            <form [formGroup]="addUserForm" novalidate (ngSubmit)="onSubmit()">
+
+                <!-- USERNAME-->
+                <div class="form-group">
+                    <label class="col-md-4">UserName</label>
+                    <input type="text" class="form-control" formControlName="userName" />
+                </div>
+                <div *ngIf="addUserForm.controls['userName'].invalid && (addUserForm.controls['userName'].dirty || addUserForm.controls['userName'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="addUserForm.controls['userName'].errors.required">
+                        UserName is required.
+                    </div>
+                </div>
+
+                <!-- PASSWORD-->
+                <div class="form-group">
+                    <label class="col-md-4">Password</label>
+                    <input type="text" value="Supplier" class="form-control" required formControlName="password" />
+                </div>
+                <div *ngIf="addUserForm.controls['password'].invalid && (addUserForm.controls['password'].dirty || addUserForm.controls['password'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="addUserForm.controls['password'].errors.required">
+                        Password is required.
+                    </div>
+                </div>
+
+                <!-- ROLENAME-->
+                <div [formGroup]="roleForm">
+                    <div class="form-group">
+                        <label class="col-md-4">Role Name </label>
+                        <select formControlName="roleId" class="form-control" required>
+                            <option value="" disabled>Choose RoleName</option>
+                            <option *ngFor="let role of roles | async" value="{{role.roleId}}">
+                                {{role.roleName}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="roleForm.controls['roleId'].invalid && (roleForm.controls['roleId'].dirty || roleForm.controls['roleId'].touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="roleForm.controls['roleId'].errors.required">
+                            Role Name is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="addUserForm.pristine || addUserForm.invalid">
+                        Add User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

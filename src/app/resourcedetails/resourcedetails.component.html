@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Resource Details</h2>
+
+    </div>
+    <div class="panel-body">
+        <table>
+            <tr>
+                <td><b>Resource Type:</b></td>
+                <td>{{res.resource.resourceType}}</td>
+            </tr>
+            <tr>
+                <td><b>Resource Capacity</b></td>
+                <td>{{res.resourceCapacity}}</td>
+            </tr>
+            <tr>
+                <td><b>Number of System:</b></td>
+                <td>{{res.noOfSystems}}</td>
+            </tr>
+            <tr>
+                <td><b>Projector:</b></td>
+                <td>{{res.projector}}</td>
+            </tr>
+            <tr>
+                <td><b>White Board:</b></td>
+                <td>{{res.whiteBoard}}</td>
+            </tr>
+            <tr>
+                <td><b>Resource Rate:</b></td>
+                <td>{{res.resourceRate}}</td>
+            </tr>
+            <tr>
+                <td><b>Type of Use:</b></td>
+                <td>{{res.typeOfUse}}</td>
+            </tr>
+
+        </table>
+        <br>
+        <br>
+        <button (click)="book(res.resourceId)" class="btn btn-primary">Book</button>
+        <br>
+    </div>
+</div>

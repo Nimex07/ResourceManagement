@@ -1,0 +1,50 @@
+<h1>Resources</h1>
+
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <div style="width: 400px;">
+            <form [formGroup]="searchResource" novalidate (ngSubmit)="onSubmit()">
+
+                <!-- RESOURCE TYPE-->
+                <div class="form-group">
+                    <label class="col-md-4">Search Resource </label>
+                    <select formControlName="resourceTypeId" class="form-control" required>
+                        <option value="" disabled>Choose Resource Type</option>
+                        <option *ngFor="let resource of resourceType | async" value="{{resource.resourceTypeId}}">
+                            {{resource.resourceType}}</option>
+                    </select>
+
+                </div>
+                <div *ngIf="searchResource.controls['resourceTypeId'].invalid && (searchResource.controls['resourceTypeId'].dirty || searchResource.controls['resourceTypeId'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="searchResource.controls['resourceTypeId'].errors.required">
+                        Field is required.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"
+                        [disabled]="searchResource.pristine || searchResource.invalid">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <ul>
+        <li *ngFor="let res of resources | async">
+            <p class="name"> {{res.resource.resourceType}} </p>
+            <P>Rate(per month): {{res.resourceRate}}</P>
+            <p *ngIf="res.typeOfUse==='internal'"><span class="badge badge-dark">Internal Use</span></p>
+            <p *ngIf="res.typeOfUse==='external'"><span class="badge badge-danger">External Use</span></p>
+            <p *ngIf="res.typeOfUse===''"><span class="badge badge-success">Available</span></p>
+            <br>
+            <br>
+            <p><a (click)="viewResource(res.resourceId)" class="btn btn-info">More Details--></a> </p>
+        </li>
+    </ul>
+</div>

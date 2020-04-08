@@ -1,0 +1,13 @@
+<header>
+    <div class="container">
+        <h5>CEO: {{userName}}</h5>
+        <nav>
+            <ul class="nav">
+                <li class="nav-item"><a class="nav-link" href="#" routerLink="/manager/viewReport">View Report</a></li>
+                <li class="nav-item"><a class="nav-link" (click)="logout()">logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<router-outlet></router-outlet>
