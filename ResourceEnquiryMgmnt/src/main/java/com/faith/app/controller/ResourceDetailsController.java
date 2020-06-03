@@ -37,9 +37,10 @@ public class ResourceDetailsController {
 	public ResponseEntity<Response> addResource(@RequestParam("file") MultipartFile file,
 			@RequestParam("resource") String resource)
 			throws JsonMappingException, JsonProcessingException, IOException {
+	
 		ResourceDetails resourceDet = new ObjectMapper().readValue(resource, ResourceDetails.class);
-		// resourceDet.setPhoto(file.getBytes());
-		resourceDet.setPicturePath("D:/resourcemanagement/src/assets/image/" + file.getOriginalFilename());
+		// resourceDet.setPhoto(compressBytes(file.getBytes()));
+		resourceDet.setPicturePath(file.getOriginalFilename());
 		ResourceDetails resourceDtls = resourceDetailsService.addResource(resourceDet);
 
 		if (resourceDtls != null) {

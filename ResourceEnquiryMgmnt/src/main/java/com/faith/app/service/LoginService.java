@@ -39,9 +39,10 @@ public class LoginService implements UserDetailsService {
 		user.setPassword(bcryptEncoder.encode(user.getPassword()));
 		return userRepo.save(user);
 	}
-
+	
 	// search by username
 	public User findByUsername(String userName) {
+		System.out.println("----------" + userName);
 		return userRepo.findByUserName(userName);
 	}
 }
