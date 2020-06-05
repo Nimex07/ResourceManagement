@@ -35,16 +35,17 @@
 
 
 <div class="container">
+
     <ul>
         <li *ngFor="let res of resources | async">
+            <img src="assets/image/{{res.picturePath}}" alt="{{res.picturePath}}" height="70" width="70"><br>
             <p class="name"> {{res.resource.resourceType}} </p>
             <P>Rate(per month): {{res.resourceRate}}</P>
             <p *ngIf="res.typeOfUse==='internal'"><span class="badge badge-dark">Internal Use</span></p>
             <p *ngIf="res.typeOfUse==='external'"><span class="badge badge-danger">External Use</span></p>
             <p *ngIf="res.typeOfUse===''"><span class="badge badge-success">Available</span></p>
-            <br>
-            <br>
-            <p><a (click)="viewResource(res.resourceId)" class="btn btn-info">More Details--></a> </p>
+            
+            <p><a (click)="viewResource(res.resourceId)" class="btn btn-info">More Details</a> </p>
         </li>
     </ul>
 </div>

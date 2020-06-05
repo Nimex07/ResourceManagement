@@ -16,7 +16,7 @@ export class ResourceService {
 
   //get all details
   getResourceList(): Observable<any> {
-    return this.httpClient.get(environment.apiurl + "/resource");
+    return this.httpClient.get(environment.apiurl + "/resource-details");
   }
 
   //create resource type

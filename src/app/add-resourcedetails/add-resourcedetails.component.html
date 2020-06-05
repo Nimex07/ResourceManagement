@@ -7,8 +7,7 @@
         <hr />
 
         <div style="width: 400px;">
-            <form [formGroup]="addResourceForm" novalidate (ngSubmit)="onSubmit()">
-
+            <form [formGroup]="addResourceForm" (ngSubmit)="onSubmit()">
 
                 <!-- RESOURCE TYPE-->
                 <div [formGroup]="addResourceType">
@@ -67,7 +66,19 @@
                     </div>
                 </div>
 
-                <input type="file" (change)="onFileChanged($event)" formControlName="picture">
+                <!-- FILE -->
+                <div>
+
+                    <label for="file">File Upload:</label>
+                    <input type="file" id="image" accept='assets/image/*' (change)="onSelectFile($event)"
+                        style="height:100%" formControlName="photo">
+                </div>
+                <div *ngIf="addResourceForm.controls['photo'].invalid && (addResourceForm.controls['photo'].dirty || addResourceForm.controls['photo'].touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="addResourceForm.controls['photo'].errors.required">
+                        Field is required.
+                    </div>
+                </div>
 
                 <!-- WHITEBOARD -->
                 <div class="form-group">

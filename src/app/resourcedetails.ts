@@ -4,7 +4,7 @@ export class Resourcedetails {
 
     resourceId: number;
     resource: Resource;
-  //  resourceTypeId: number;
+
     resourceCapacity: number;
     noOfSystems: number;
     projector: string;
@@ -15,6 +15,5 @@ export class Resourcedetails {
     isAccepted: string;
     isBooked: string;
     isActive: string;
-
-
+    photo: any;
 }

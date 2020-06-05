@@ -19,7 +19,7 @@ export class AddResourcedetailsComponent implements OnInit {
   res: Resourcedetails = new Resourcedetails();
   resourceType: Observable<Resource[]>;
   addResourceType: FormGroup;
-  selectedFile=null;
+  resourceFile: File;
 
   constructor(private formBuilder: FormBuilder,
     private resourceDetailsService: ResourcedetailsService,
@@ -45,13 +45,17 @@ export class AddResourcedetailsComponent implements OnInit {
       projector: ['', Validators.required],
       whiteBoard: ['', Validators.required],
       resourceRate: ['', Validators.required],
-      picture: ['']
+      photo: ['']
 
     });
   }
 
-  onFileChanged(event) {
-    this.selectedFile = event.target.files[0];
+  onSelectFile(event) {
+    const file = event.target.files[0];
+    console.log(file);
+    this.resourceFile = file;
+    console.log("picture file name", this.resourceFile);
+
   }
 
   onSubmit() {
@@ -68,19 +72,22 @@ export class AddResourcedetailsComponent implements OnInit {
     this.res.whiteBoard = this.addResourceForm.controls.whiteBoard.value;
     this.res.resourceRate = this.addResourceForm.controls.resourceRate.value;
 
+
     this.res.typeOfUse = "";
     this.res.isActive = "Y";
     this.res.isAccepted = "N";
     this.res.isBooked = "N";
 
-    console.log(this.selectedFile);
+    const formDatas = new FormData();
+    formDatas.append('resource', JSON.stringify(this.res));
 
+    formDatas.append('file', this.resourceFile, this.resourceFile.name);
 
 
     // calling method to insert
-    /*    this.resourceDetailsService.createResource(this.res).subscribe(
-          data => console.log(data), error => console.log(error)
-        );*/
+    this.resourceDetailsService.createResource(formDatas).subscribe(
+      data => console.log(data), error => console.log(error)
+    );
     this.toastr.success('New Resource Successfully Created', 'Creating ResourceType');
     this.router.navigateByUrl('/admin/viewResourceDetails');
   }
